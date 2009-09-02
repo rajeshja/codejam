@@ -1,0 +1,62 @@
+<project name="Shopping Cart" default="run" basedir=".">
+
+	<!--  This is a basic build script, only the minimums here -->
+
+	<!-- Tell ant to use my environment variables -->
+	<property environment="env"/>
+
+	<property file="./local.properties"/>
+	<property file="./build.properties"/>
+
+	<!-- Setting up the project classpath -->
+	<path id="project.class.path">
+		<pathelement path="${java.src.dir}" />
+	</path>
+
+	<!-- Clean the build environment. (Does not undeploy the application) -->
+	<target name="clean">
+		<delete includeEmptyDirs="true" failonerror="false">
+			<fileset dir="${build.dir}"/>
+			<fileset dir="${dist.dir}"/>
+		</delete>
+	</target>
+
+	<!-- Initial preparations -->
+	<target name="prep" depends="clean">
+		<mkdir dir="${build.dir}"/>
+		<mkdir dir="${dist.dir}"/>
+	</target>
+
+	<!-- Compile java code -->
+	<target name="compile" depends="prep">
+		<javac srcdir="${java.src.dir}"
+					 destdir="${build.dir}"
+					 debug="on"
+					 deprecation="on"
+					 target="${java.compile.target}">
+			<compilerarg value="-Xlint:unchecked" />
+			<include name="**/*.java"/>
+			<classpath refid="project.class.path"/>
+		</javac>
+	</target>
+
+	<target name="run" depends="compile">
+		<java classname="${main.class}" fork="true">
+			<!-- jvmarg value="-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005"/ -->
+			<arg value="${basedir}\${i}"/>
+			<arg value="${basedir}\${o}"/>
+			<classpath>
+				<pathelement path="${build.dir}"/>
+			</classpath>
+		</java>
+	</target>
+
+	<!-- Create a source distribution -->
+	<target name="src-dist">
+		<zip destfile="${project.name}-src.zip">
+			<fileset dir="." 
+				excludes=".git/,**/.svn/**,bin/**,build/**,dist/**,**/*~,${project.name}-src.zip" />
+		</zip>
+	</target>
+
+</project>

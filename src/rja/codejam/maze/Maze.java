@@ -1,4 +1,7 @@
-package rja.codejam;
+package rja.codejam.maze;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Describe class Maze here.
@@ -14,33 +17,8 @@ public class Maze {
 	private int width;
 	private int height;
 
-	private List 
+	private List<Map<String, Integer>> rooms;  
 
-	public class Coordinate {
-		private int x;
-		private int y;
-
-		public Coordinate(int x, int y) {
-			this.x = x;
-			this.y = y;
-		}
-
-		public int getX() {
-			return x;
-		}
-
-		public void setX(int x) {
-			this.x = x;
-		}
-
-		public int getY() {
-			return y;
-		}
-
-		public void setY(int y) {
-			this.y = y;
-		}
-	}
 
 	public Maze(String forwardPath, String backwardPath) {
 
@@ -52,7 +30,7 @@ public class Maze {
 	}
 
 	private Coordinate map(String path, Coordinate start) {
-		
+		return null;
 	}
 
 }

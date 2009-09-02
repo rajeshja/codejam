@@ -43,8 +43,8 @@
 	<target name="run" depends="compile">
 		<java classname="${main.class}" fork="true">
 			<!-- jvmarg value="-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005"/ -->
-			<arg value="${basedir}\${i}"/>
-			<arg value="${basedir}\${o}"/>
+			<arg value="${basedir}/${i}"/>
+			<arg value="${basedir}/${o}"/>
 			<classpath>
 				<pathelement path="${build.dir}"/>
 			</classpath>

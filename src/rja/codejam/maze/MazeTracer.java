@@ -1,4 +1,10 @@
-package rja.codejam;
+package rja.codejam.maze;
+
+import java.io.BufferedReader;
+import java.io.PrintWriter;
+import java.io.IOException;
+import java.io.FileReader;
+import java.io.FileWriter;
 
 public final class MazeTracer {
 
@@ -53,7 +59,7 @@ public final class MazeTracer {
 			System.out.println("Usage: AlienTranslator <inputfile> <outputfile>");
 		}
 
-		AlienTranslator t = new AlienTranslator();
+		MazeTracer t = new MazeTracer();
 
 		try {
 

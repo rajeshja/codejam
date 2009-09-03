@@ -55,7 +55,9 @@
 	<target name="src-dist">
 		<zip destfile="${project.name}-src.zip">
 			<fileset dir="." 
-				excludes=".git/,**/.svn/**,bin/**,build/**,dist/**,**/*~,${project.name}-src.zip" />
+				includes="build.xml,build.properties,src/rja/codejam/qualifier/*.java,README" />
+			<!-- fileset dir="." 
+				excludes=".git/,**/.svn/**,bin/**,build/**,dist/**,**/*~,*.in,*.out,${project.name}-src.zip" / -->
 		</zip>
 	</target>
 

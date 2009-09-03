@@ -1,0 +1,11 @@
+To run this program, you can use one of two approaches - 
+
+1. Use the bundled ant script to compile and execute the program.
+
+   $ ant -Di=inputfile.in -Do=outputfile.out -s
+
+2. The same as above but you save the file names in the build.properties file (also bundled)
+
+3. Compile the java file, and execute the class as:
+   
+   $ java rja.codejam.qualifier.AlienWordMatch inputfile.in outputfile.out

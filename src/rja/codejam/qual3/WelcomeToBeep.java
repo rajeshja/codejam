@@ -57,25 +57,25 @@ public class WelcomeToBeep {
 
 			//Look for each character one by one
 			boolean positionFound=true;
-			int currMatchedPosition = -1;
 			for (int patternPosition=0;
 				 (positionFound && patternPosition<PATTERN.length());
 				 patternPosition++) {
 
 				//Look for current character
 				boolean currentPatternPositionFound=false;
-				for (int testCasePosition=((currMatchedPosition==-1) ? positions[patternPosition]+1 : (currMatchedPosition+1));
+				for (int testCasePosition=(((positions[patternPosition]==-1) && (patternPosition!=0)) 
+										   ? positions[patternPosition-1]+1 
+										   : positions[patternPosition]+1);
 					 (!currentPatternPositionFound
 					  &&(testCasePosition<=(testCase.length()-(PATTERN.length()-patternPosition))));
 					 testCasePosition++) {
 					if (testCase.charAt(testCasePosition) == PATTERN.charAt(patternPosition)) {
-						currMatchedPosition = testCasePosition;
 						positions[patternPosition] = testCasePosition;
 						currentPatternPositionFound=true;
 					}
 				}
 				//Done looking for current character. Found?
-				if (currMatchedPosition == -1) {
+				if (positions[patternPosition] == -1) {
 					positionFound = false;
 				}
 

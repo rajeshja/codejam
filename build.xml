@@ -42,7 +42,7 @@
 
 	<target name="run" depends="compile">
 		<java classname="${main.class}" fork="true">
-			<!-- jvmarg value="-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005"/ -->
+			<jvmarg value="-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5000"/>
 			<arg value="${basedir}/${i}"/>
 			<arg value="${basedir}/${o}"/>
 			<classpath>
@@ -55,7 +55,7 @@
 	<target name="src-dist">
 		<zip destfile="${project.name}-src.zip">
 			<fileset dir="." 
-				includes="build.xml,build.properties,src/rja/codejam/qualifier/*.java,README" />
+				includes="build.xml,build.properties,src/rja/codejam/qual2/*.java,README" />
 			<!-- fileset dir="." 
 				excludes=".git/,**/.svn/**,bin/**,build/**,dist/**,**/*~,*.in,*.out,${project.name}-src.zip" / -->
 		</zip>

@@ -8,4 +8,4 @@ To run this program, you can use one of two approaches -
 
 3. Compile the java file, and execute the class as:
    
-   $ java rja.codejam.qualifier.AlienWordMatch inputfile.in outputfile.out
+   $ java rja.codejam.qual2.Watersheds inputfile.in outputfile.out

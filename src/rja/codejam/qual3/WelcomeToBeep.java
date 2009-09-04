@@ -54,6 +54,13 @@ public class WelcomeToBeep {
 
 	private long findMatches(String testCase, String pattern, long count) {
 
+		if (pattern.length() != 1) {
+			String remainingCase = testCase.substring(firstMatch+1);
+			String remainingPattern = pattern.substring(1);
+			
+			long returnedCount = findMatches(remainingCase, remainingPattern, count);
+		}
+
 		char firstPatternChar = pattern.charAt(0);
 		int firstMatch = testCase.indexOf(firstPatternChar);
 
@@ -61,11 +68,6 @@ public class WelcomeToBeep {
 			return 0;
 		} else {
 			count++;
-			if (pattern.length() != 1) {
-				String remainingCase = testCase.substring(firstMatch+1);
-				String remainingPattern = pattern.substring(1);
-
-				long returnedCount = findMatches(remainingCase, remainingPattern, count);
 				//count = (count*returnedCount);
 			} else {
 				//Last char of pattern

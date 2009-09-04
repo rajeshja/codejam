@@ -68,6 +68,9 @@ public class WelcomeToBeep {
 				long returnedCount = findMatches(remainingCase, remainingPattern, count);
 				//count = (count*returnedCount);
 			} else {
+				//Last char of pattern
+				
+
 				if (testCase.length() != 1) {
 					String remainingCase = testCase.substring(firstMatch+1);
 					long returnedCount = findMatches(remainingCase, pattern, count);

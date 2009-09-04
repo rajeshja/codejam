@@ -43,10 +43,52 @@ public class WelcomeToBeep {
 
 		int count=0;
 
+		char[] testChars = new char[testCase.length()];
+		testCase.getChars(0, testCase.length(), testChars, 0); 
+		char[] patternChars = new char[PATTERN.length()];
+		PATTERN.getChars(0, PATTERN.length(), patternChars, 0); 
+
 		count = findMatches(testCase, PATTERN);
 
 		return count%10000;
 	}
+
+//	private int findMatches(char[] testCase, int tPos, char[] pattern, int pPos) {
+//
+//		int count = 0;
+//
+//		int matchIndex;
+//		do {
+//			matchIndex = find(testCase. tPos, pattern[pPos]);
+//
+//			if (matchIndex != -1) {
+//
+//				tPos = matchIndex;
+//
+//				if (pattern.length == pPos) {
+//					//The multiplication is the reason I
+//					//can't remove leading digits at this stage.
+//					//Or can I? Oh.
+//					count += findMatches(testCase, tPos, pattern, pPos+1);
+//				} else {
+//					count++;
+//				}
+//				count %= 10000;
+//			}
+//		} while (matchIndex != -1);
+//		
+//		return count;
+//	}
+
+//	private int find(char[] case, int startPos, char patternChar) {
+//		int index=-1;
+//		for (int i=startPos; i<case.length; i++) {
+//			if (case[i] == patternChar) {
+//				index = i;
+//			}
+//		}
+//		return index;
+//	}
 
 	private int findMatches(String testCase, String pattern) {
 

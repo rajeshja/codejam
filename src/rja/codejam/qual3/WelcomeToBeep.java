@@ -25,7 +25,7 @@ public class WelcomeToBeep {
 			try {
 				String currLine = in.readLine();
 				System.out.println("Processing line " + currLine);
-				int output = processLine(currLine);
+				long output = processLine(currLine);
 				out.printf("Case #%d: %04d", i+1, output);
 				out.println();
 			} catch (IOException e) {
@@ -39,64 +39,48 @@ public class WelcomeToBeep {
 
 	}
 
-	private int processLine(String testCase) {
+	private long processLine(String testCase) {
 
-		int count=0;
-		int positions[] = new int[PATTERN.length()];
-		for (int p=0; p<positions.length; p++) {
-			positions[p] = -1;
+		long count=0;
+
+		count = findMatches(testCase, PATTERN, 0);
+
+		if (true) {
+			count = (count+1)%10000;
 		}
 
-		//Fint;
+		return count%10000;
+	}
 
-		boolean patternFound=true;
-		//Traverse the test case
-		for (int startPosition=0;
-			 (patternFound && (startPosition<=(testCase.length()-PATTERN.length())));
-			 startPosition++) {
+	private long findMatches(String testCase, String pattern, long count) {
 
-			for (int patternOutPosition=0;
-					 patternOutPosition<PATTERN.length();
-					 patternOutPosition++) {
+		char firstPatternChar = pattern.charAt(0);
+		int firstMatch = testCase.indexOf(firstPatternChar);
 
-				//Look for each character one by one
-				boolean positionFound=true;
-				for (int patternPosition=patternOutPosition;
-					 (positionFound && patternPosition<PATTERN.length());
-					 patternPosition++) {
-					
-					//Look for current character
-					boolean currentPatternPositionFound=false;
-					for (int testCasePosition=(((positions[patternPosition]==-1) && (patternPosition!=0)) 
-											   ? positions[patternPosition-1]+1 
-											   : positions[patternPosition]+1);
-						 (!currentPatternPositionFound
-						  &&(testCasePosition<=(testCase.length()-(PATTERN.length()-patternPosition))));
-						 testCasePosition++) {
-						if (testCase.charAt(testCasePosition) == PATTERN.charAt(patternPosition)) {
-							positions[patternPosition] = testCasePosition;
-							currentPatternPositionFound=true;
-						}
-					}
-					//Done looking for current character. Found?
-					if (positions[patternPosition] == -1) {
-						positionFound = false;
-					}
-					
-				}
-				//Done looking for pattern. Found?
-				if (positionFound == false) {
-					patternFound = false;
+		if (firstMatch == -1) {
+			return 0;
+		} else {
+			count++;
+			if (pattern.length() != 1) {
+				String remainingCase = testCase.substring(firstMatch+1);
+				String remainingPattern = pattern.substring(1);
+
+				long returnedCount = findMatches(remainingCase, remainingPattern, count);
+				//count = (count*returnedCount);
+			} else {
+				if (testCase.length() != 1) {
+					String remainingCase = testCase.substring(firstMatch+1);
+					long returnedCount = findMatches(remainingCase, pattern, count);
+					count = (count+returnedCount);
 				} else {
-					count = (count+1)%10000;
+					return count;
 				}
-
 			}
-
 		}
-
+		
 		return count;
 	}
+
 	
 	public static void main(String[] args) {
 

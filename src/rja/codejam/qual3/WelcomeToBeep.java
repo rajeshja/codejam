@@ -25,7 +25,7 @@ public class WelcomeToBeep {
 			try {
 				String currLine = in.readLine();
 				System.out.println("Processing line " + currLine);
-				long output = processLine(currLine);
+				int output = processLine(currLine);
 				out.printf("Case #%d: %04d", i+1, output);
 				out.println();
 			} catch (IOException e) {
@@ -39,49 +39,38 @@ public class WelcomeToBeep {
 
 	}
 
-	private long processLine(String testCase) {
+	private int processLine(String testCase) {
 
-		long count=0;
+		int count=0;
 
-		count = findMatches(testCase, PATTERN, 0);
-
-		if (true) {
-			count = (count+1)%10000;
-		}
+		count = findMatches(testCase, PATTERN);
 
 		return count%10000;
 	}
 
-	private long findMatches(String testCase, String pattern, long count) {
+	private int findMatches(String testCase, String pattern) {
 
-		if (pattern.length() != 1) {
-			String remainingCase = testCase.substring(firstMatch+1);
-			String remainingPattern = pattern.substring(1);
-			
-			long returnedCount = findMatches(remainingCase, remainingPattern, count);
-		}
+		int count = 0;
 
-		char firstPatternChar = pattern.charAt(0);
-		int firstMatch = testCase.indexOf(firstPatternChar);
+		int matchIndex;
+		do {
+			matchIndex = testCase.indexOf(pattern.charAt(0));
 
-		if (firstMatch == -1) {
-			return 0;
-		} else {
-			count++;
-				//count = (count*returnedCount);
-			} else {
-				//Last char of pattern
-				
+			if (matchIndex != -1) {
 
-				if (testCase.length() != 1) {
-					String remainingCase = testCase.substring(firstMatch+1);
-					long returnedCount = findMatches(remainingCase, pattern, count);
-					count = (count+returnedCount);
+				testCase = testCase.substring(matchIndex + 1);
+
+				if (pattern.length() != 1) {
+					//The multiplication is the reason I
+					//can't remove leading digits at this stage.
+					//Or can I? Oh.
+					count += findMatches(testCase, pattern.substring(1));
 				} else {
-					return count;
+					count++;
 				}
+				count %= 10000;
 			}
-		}
+		} while (matchIndex != -1);
 		
 		return count;
 	}
@@ -93,6 +82,7 @@ public class WelcomeToBeep {
 			System.out.println("Usage: WelcomeToBeep <inputfile> <outputfile>");
 		}
 
+		long start = System.currentTimeMillis();
 		WelcomeToBeep t = new WelcomeToBeep();
 
 		try {
@@ -110,6 +100,10 @@ public class WelcomeToBeep {
 			System.out.println("Error in input file.");
 			e.printStackTrace();
 		}
+
+		long end = System.currentTimeMillis();
+
+		System.out.println("Took " + (end-start)/1000 + " seconds.");
 	}
 
 }

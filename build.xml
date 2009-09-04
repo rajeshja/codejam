@@ -1,4 +1,4 @@
-<project name="Shopping Cart" default="run" basedir=".">
+<project name="Simple java compiler" default="run" basedir=".">
 
 	<!--  This is a basic build script, only the minimums here -->
 
@@ -31,7 +31,7 @@
 	<target name="compile" depends="prep">
 		<javac srcdir="${java.src.dir}"
 					 destdir="${build.dir}"
-					 debug="on"
+					 debug="${java.debug}"
 					 deprecation="on"
 					 target="${java.compile.target}">
 			<compilerarg value="-Xlint:unchecked" />

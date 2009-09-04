@@ -55,36 +55,42 @@ public class WelcomeToBeep {
 			 (patternFound && (startPosition<=(testCase.length()-PATTERN.length())));
 			 startPosition++) {
 
-			//Look for each character one by one
-			boolean positionFound=true;
-			for (int patternPosition=0;
-				 (positionFound && patternPosition<PATTERN.length());
-				 patternPosition++) {
+			for (int patternOutPosition=0;
+					 patternOutPosition<PATTERN.length();
+					 patternOutPosition++) {
 
-				//Look for current character
-				boolean currentPatternPositionFound=false;
-				for (int testCasePosition=(((positions[patternPosition]==-1) && (patternPosition!=0)) 
-										   ? positions[patternPosition-1]+1 
-										   : positions[patternPosition]+1);
-					 (!currentPatternPositionFound
-					  &&(testCasePosition<=(testCase.length()-(PATTERN.length()-patternPosition))));
-					 testCasePosition++) {
-					if (testCase.charAt(testCasePosition) == PATTERN.charAt(patternPosition)) {
-						positions[patternPosition] = testCasePosition;
-						currentPatternPositionFound=true;
+				//Look for each character one by one
+				boolean positionFound=true;
+				for (int patternPosition=patternOutPosition;
+					 (positionFound && patternPosition<PATTERN.length());
+					 patternPosition++) {
+					
+					//Look for current character
+					boolean currentPatternPositionFound=false;
+					for (int testCasePosition=(((positions[patternPosition]==-1) && (patternPosition!=0)) 
+											   ? positions[patternPosition-1]+1 
+											   : positions[patternPosition]+1);
+						 (!currentPatternPositionFound
+						  &&(testCasePosition<=(testCase.length()-(PATTERN.length()-patternPosition))));
+						 testCasePosition++) {
+						if (testCase.charAt(testCasePosition) == PATTERN.charAt(patternPosition)) {
+							positions[patternPosition] = testCasePosition;
+							currentPatternPositionFound=true;
+						}
 					}
+					//Done looking for current character. Found?
+					if (positions[patternPosition] == -1) {
+						positionFound = false;
+					}
+					
 				}
-				//Done looking for current character. Found?
-				if (positions[patternPosition] == -1) {
-					positionFound = false;
+				//Done looking for pattern. Found?
+				if (positionFound == false) {
+					patternFound = false;
+				} else {
+					count = (count+1)%10000;
 				}
 
-			}
-			//Done looking for pattern. Found?
-			if (positionFound == false) {
-				patternFound = false;
-			} else {
-				count = (count+1)%10000;
 			}
 
 		}

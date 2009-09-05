@@ -10,6 +10,8 @@ public class WelcomeToBeep {
 
 	private static final String PATTERN = "welcome to code jam";
 
+	private int recursed;
+
 	private void processInput(BufferedReader in, PrintWriter out) throws IOException {
 
 		int count;
@@ -48,52 +50,53 @@ public class WelcomeToBeep {
 		char[] patternChars = new char[PATTERN.length()];
 		PATTERN.getChars(0, PATTERN.length(), patternChars, 0); 
 
-		count = findMatches(testCase, PATTERN);
+		recursed = 0;
+
+		count = findMatches(testChars, 0, patternChars, 0);
+		//count = findMatches(testCase, PATTERN);
+
+		System.out.println(recursed);
 
 		return count%10000;
 	}
 
-//	private int findMatches(char[] testCase, int tPos, char[] pattern, int pPos) {
-//
-//		int count = 0;
-//
-//		int matchIndex;
-//		do {
-//			matchIndex = find(testCase. tPos, pattern[pPos]);
-//
-//			if (matchIndex != -1) {
-//
-//				tPos = matchIndex;
-//
-//				if (pattern.length == pPos) {
-//					//The multiplication is the reason I
-//					//can't remove leading digits at this stage.
-//					//Or can I? Oh.
-//					count += findMatches(testCase, tPos, pattern, pPos+1);
-//				} else {
-//					count++;
-//				}
-//				count %= 10000;
-//			}
-//		} while (matchIndex != -1);
-//		
-//		return count;
-//	}
+	private int findMatches(char[] testCase, int tPos, char[] pattern, int pPos) {
 
-//	private int find(char[] case, int startPos, char patternChar) {
-//		int index=-1;
-//		for (int i=startPos; i<case.length; i++) {
-//			if (case[i] == patternChar) {
-//				index = i;
-//			}
-//		}
-//		return index;
-//	}
+		int count = 0;
+		int matchIndex;
+		do {
+			matchIndex = find(testCase, tPos, pattern[pPos]);
+
+			if (matchIndex != -1) {
+
+				tPos = matchIndex+1;
+
+				if (pPos != (pattern.length-1)) {
+					recursed++;
+					count += findMatches(testCase, tPos, pattern, pPos+1);
+				} else {
+					count++;
+				}
+				count %= 10000;
+			}
+		} while (matchIndex != -1);
+		
+		return count;
+	}
+
+	private int find(char[] text, int startPos, char patternChar) {
+
+		for (int i=startPos; i<text.length; i++) {
+			if (text[i] == patternChar) {
+				return i;
+			}
+		}
+		return -1;
+	}
 
 	private int findMatches(String testCase, String pattern) {
 
 		int count = 0;
-
 		int matchIndex;
 		do {
 			matchIndex = testCase.indexOf(pattern.charAt(0));
@@ -103,9 +106,6 @@ public class WelcomeToBeep {
 				testCase = testCase.substring(matchIndex + 1);
 
 				if (pattern.length() != 1) {
-					//The multiplication is the reason I
-					//can't remove leading digits at this stage.
-					//Or can I? Oh.
 					count += findMatches(testCase, pattern.substring(1));
 				} else {
 					count++;

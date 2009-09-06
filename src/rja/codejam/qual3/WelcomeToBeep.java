@@ -52,8 +52,8 @@ public class WelcomeToBeep {
 
 		recursed = 0;
 
-		count = findMatches(testChars, 0, patternChars, 0);
-		//count = findMatches(testCase, PATTERN);
+		//count = findMatches(testChars, 0, patternChars, 0);
+		count = findMatches(testCase, PATTERN);
 
 		System.out.println(recursed);
 

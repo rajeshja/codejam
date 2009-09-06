@@ -53,11 +53,31 @@ public class WelcomeToBeep {
 		recursed = 0;
 
 		//count = findMatches(testChars, 0, patternChars, 0);
-		count = findMatches(testCase, PATTERN);
+		//count = findMatches(testCase, PATTERN);
+
+		count = findMatches(testChars, patternChars);
 
 		System.out.println(recursed);
 
 		return count%10000;
+	}
+
+	private int findMatches(char[] testCase, char[] pattern) {
+		
+		int count=0;
+		char[][] matchedChars = new char[pattern.length][testCase.length];
+
+		for (int i=0; i<pattern.length; i++) {
+			int matchedIndex=0;
+			for(int j=0; j<testCase.length; j++) {
+				if (testCase[j] == pattern[i]) {
+					matchedChars[matchedIndex] = j;
+					matchedIndex++;
+				}
+			}
+		}
+
+		return count;
 	}
 
 	private int findMatches(char[] testCase, int tPos, char[] pattern, int pPos) {
